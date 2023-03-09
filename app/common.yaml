@@ -1,0 +1,214 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: relay-config
+data:
+  RELAY_PORT: '8080'
+  RELAY_APIHOST: '0.0.0.0'
+  ENTITIES_SVC: entities:9090
+  CONFIGURATION_SVC: configuration:9090
+  COMPLIANCE_SVC: compliance:9090
+  QUOTES_SVC: quotes:9090
+  USERS_SVC: users:9090
+  EMAILS_SVC: emails:9090
+  PHONES_SVC: phones:9090
+  AUTHENTICATION_SVC: authentication:50051
+  LINKED_ACCOUNTS_SVC: linked-accounts:9090
+  TASKS_SVC: tasks:9090
+  WALLETS_SVC: wallets:9090
+  SOURCES_SVC: sources:9090
+  DESTINATIONS_SVC: destinations:9090
+  BANK_ACCOUNTS_SVC: bank-accounts:9090
+  AWS_REGION: eu-west-1
+  RELAY_API_READ_TIMEOUT: 30s
+  RELAY_API_WRITE_TIMEOUT: 30s
+  RELAY_API_SHUTDOWN_TIMEOUT: 30s
+  AUTHORIZATION_SVC: authorization:9090
+  FUNDING_SVC: funding:9090
+  LIMITS_SVC: limits:9090
+  TRANSACTIONS_SVC: transactions:9090
+  PAYMENT_GATEWAY_SVC: payment-gateway:9090
+  ECOBANK_SVC: ecobank:9090
+  INVITES_SVC: invites:9090
+  SIGNUP_CODE_BYPASS: EEEEEEEE
+  AWS_S3_BUCKET_COMPLIANCE: test
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: relay
+  labels:
+    app: relay
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: relay
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: relay
+        version: v1
+    spec:
+      containers:
+      - image: 308172169369.dkr.ecr.eu-west-1.amazonaws.com/emails-test:relay_4
+        name: relay
+        ports:
+        - containerPort: 8080
+        envFrom:
+          - configMapRef:
+              name: relay-config
+      imagePullSecrets:
+      - name: ecr-secret
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: relay
+  labels:
+    app: relay
+spec:
+  selector:
+    app: relay
+  ports:
+    - port: 80
+      name: http
+      targetPort: 8080
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: local-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - '*'
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: helloworld-localhost-credential
+      hosts:
+        - '*'
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: relay
+spec:
+  hosts:
+    - '*'
+  gateways:
+    - local-gateway
+  http:
+    - route:
+      - destination:
+          host: relay.default.svc.cluster.local
+          port:
+            number: 80
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-config
+data:
+  CONFIGURATION_PORT: '9090'
+  CONFIGURATION_DB_HOST: postgres
+  CONFIGURATION_DB_PASS: secret
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: configuration
+  labels:
+    app: configuration
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: configuration
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: configuration
+        version: v1
+    spec:
+      containers:
+      - image: 308172169369.dkr.ecr.eu-west-1.amazonaws.com/emails-test:conf_3
+        name: configuration
+        ports:
+        - containerPort: 9090
+        envFrom:
+          - configMapRef:
+              name: config-config
+      imagePullSecrets:
+      - name: ecr-secret
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: configuration
+  labels:
+    app: configuration
+spec:
+  selector:
+    app: configuration
+  ports:
+    - port: 9090
+      name: grpc-config
+      targetPort: 9090
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  selector:
+    matchLabels:
+      app: postgres
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:latest
+        env:
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: secret
+        - name: POSTGRES_DB
+          value: configuration
+        ports:
+        - containerPort: 5432
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+spec:
+  selector:
+    app: postgres
+  ports:
+  - name: postgres
+    port: 5432
+    targetPort: 5432
