@@ -6,7 +6,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: production
+  project: default
   source:
     path: core/argo-rollouts/base
     repoURL: https://github.com/Maverickme222222/argo-all.git
