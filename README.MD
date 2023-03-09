@@ -4,6 +4,6 @@ apps:
 - [x] Istio Addons
 - [x] Argo Rollouts
 - [x] Argo Events
-- [ ] Argo Workflows
+- [x] Argo Workflows
 - [ ] Argo Notifications
 - [ ] Kyverno
