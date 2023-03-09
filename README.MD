@@ -2,8 +2,8 @@ apps:
 - [x] ArgoCD
 - [x] Istio
 - [x] Istio Addons
-- [ ] Argo Rollouts
-- [ ] Argo Events
+- [x] Argo Rollouts
+- [x] Argo Events
 - [ ] Argo Workflows
 - [ ] Argo Notifications
 - [ ] Kyverno
