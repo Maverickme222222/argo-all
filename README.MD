@@ -6,4 +6,4 @@ apps:
 - [x] Argo Events
 - [x] Argo Workflows
 - [x] Argo Notifications
-- [ ] Kyverno
+- [x] Kyverno
