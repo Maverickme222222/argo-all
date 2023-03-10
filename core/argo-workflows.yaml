@@ -15,8 +15,6 @@ spec:
       values: |
         controller:
           replicas: 1
-        images:
-          tag: v3.0.1
   destination:
     namespace: argo
     server: https://kubernetes.default.svc
