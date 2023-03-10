@@ -9,7 +9,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: core/kyverno/base
+    path: core/kyverno/overlays/production
     repoURL: https://github.com/Maverickme222222/argo-all.git
     targetRevision: HEAD
   syncPolicy:
