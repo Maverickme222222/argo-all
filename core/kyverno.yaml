@@ -9,8 +9,8 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    chart: kyverno
-    repoURL: https://kyverno.github.io/kyverno
+    chart: core/kyverno/base
+    repoURL: https://github.com/Maverickme222222/argo-all.git
     targetRevision: 2.6.0
   syncPolicy:
     automated:
