@@ -3,4 +3,5 @@ kind: Kustomization
 resources:
 - skip-istio-pod.yaml
 - base-pod-security.yaml
+- disallow-privileged-containers.yaml
 namespace: kyverno
