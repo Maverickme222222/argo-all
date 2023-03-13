@@ -1,0 +1,23 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: skip-init-containers-validation
+spec:
+  background: false
+  preconditions:
+    - key: resources.matchKinds
+      operator: NotIn
+      values:
+        - InitContainer
+  rules:
+    - name: skip-init-containers
+      match:
+        resources:
+          kinds:
+            - Pod
+      validate:
+        message: "This is an example policy."
+        pattern:
+          metadata:
+            annotations:
+              example: "true"
