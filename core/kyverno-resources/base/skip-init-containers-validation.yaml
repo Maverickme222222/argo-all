@@ -4,11 +4,9 @@ metadata:
   name: skip-init-containers-validation
 spec:
   background: false
-  preconditions:
-    - key: resources.matchKinds
-      operator: NotIn
-      values:
-        - InitContainer
+  excludeResources:
+    kinds:
+      - InitContainer
   rules:
     - name: skip-init-containers
       match:
