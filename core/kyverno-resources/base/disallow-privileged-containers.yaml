@@ -26,6 +26,10 @@ spec:
         - resources:
             kinds:
               - Pod
+      exclude:
+        resources:
+          matches:
+            - excludeKind: InitContainer
       validate:
         message: >-
           Privileged mode is disallowed. The fields spec.containers[*].securityContext.privileged
