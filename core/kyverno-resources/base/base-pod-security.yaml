@@ -26,6 +26,10 @@ spec:
       - resources:
           kinds:
           - Pod
+    exclude:
+      resources:
+        matches:
+          - excludeKind: InitContainer
     validate:
       podSecurity:
         level: baseline
