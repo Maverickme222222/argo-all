@@ -26,8 +26,8 @@ spec:
               - default
       exclude:
         resources:
-          kinds:
-          - InitContainer
+          subResource:
+            name: InitContainer
       validate:
         message: >-
           Privileged mode is disallowed. The fields spec.containers[*].securityContext.privileged
