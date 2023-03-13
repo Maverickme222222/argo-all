@@ -24,9 +24,9 @@ spec:
               - Pod
             namespaces:
               - default
-            excludeResources:
-            - kind: Container
-              path: spec.initContainers
+            excludePatch:
+            - op: replace
+              path: /spec/initContainers
       validate:
         message: >-
           Privileged mode is disallowed. The fields spec.containers[*].securityContext.privileged
