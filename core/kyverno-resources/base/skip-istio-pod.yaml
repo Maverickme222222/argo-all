@@ -15,3 +15,7 @@ spec:
         matches:
           - excludeGroup: istio-init-container
             excludeKind: Container
+    validate:
+      podSecurity:
+        level: baseline
+        version: latest
