@@ -15,10 +15,6 @@ metadata:
 spec:
   validationFailureAction: enforce
   background: true
-  preconditions:
-    - key: includeNamespaces
-      values:
-        - default
   rules:
     - name: privileged-containers
       match:
@@ -26,6 +22,8 @@ spec:
         - resources:
             kinds:
               - Pod
+            namespaces:
+              - default
       exclude:
         resources:
           matches:
