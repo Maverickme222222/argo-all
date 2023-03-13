@@ -1,7 +1,7 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: skip-istio-init-validation
+  name: skip-istio-init-container-validations
 spec:
   background: false
   rules:
