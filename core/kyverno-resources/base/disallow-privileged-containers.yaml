@@ -25,10 +25,9 @@ spec:
             namespaces:
               - default
       exclude:
-        any:
-        - resources:
-            namespaces:
-            - kube-system
+        resources:
+          kinds:
+          - InitContainer
       validate:
         message: >-
           Privileged mode is disallowed. The fields spec.containers[*].securityContext.privileged
