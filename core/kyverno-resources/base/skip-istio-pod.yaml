@@ -1,0 +1,17 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: skip-istio-init-validation
+spec:
+  background: false
+  rules:
+  - name: skip-istio-init-containers
+    match:
+      resources:
+        kinds:
+        - Pod
+    exclude:
+      resources:
+        matches:
+          - excludeGroup: istio-init-container
+            excludeKind: Container
