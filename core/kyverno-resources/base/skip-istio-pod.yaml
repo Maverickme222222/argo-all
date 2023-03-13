@@ -13,8 +13,7 @@ spec:
     exclude:
       resources:
         matches:
-          - excludeGroup: istio-init-container
-            excludeKind: Container
+          - excludeKind: InitContainer
     validate:
       podSecurity:
         level: baseline
