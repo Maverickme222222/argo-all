@@ -24,6 +24,8 @@ spec:
       - resources:
           kinds:
           - Service
+          namespaces:
+          - default
     validate:
       message: "Service of type LoadBalancer is not allowed."
       pattern:
