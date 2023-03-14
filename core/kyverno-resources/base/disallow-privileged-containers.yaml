@@ -24,9 +24,11 @@ spec:
               - Pod
             namespaces:
               - default
-            excludePatch:
-            - op: replace
-              path: /spec/initContainers
+      preconditions:
+        all:
+        - key: '{{ spec.initContainers.name }}'
+          operator: NotEquals
+          value: istio-init
       validate:
         message: >-
           Privileged mode is disallowed. The fields spec.containers[*].securityContext.privileged
