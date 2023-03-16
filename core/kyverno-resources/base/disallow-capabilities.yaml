@@ -22,10 +22,11 @@ spec:
         - resources:
             kinds:
               - Pod
-      exclude:
-        resources:
-          matches:
-            - excludeKind: InitContainer
+      preconditions:
+        any:
+        - key: "istio-init"
+          operator: NotIn
+          value: "{{ images.initContainers.*.name }}"
       validate:
         message: >-
           Any capabilities added beyond the allowed list (AUDIT_WRITE, CHOWN, DAC_OVERRIDE, FOWNER,
