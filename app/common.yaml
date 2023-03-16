@@ -55,6 +55,10 @@ spec:
       containers:
       - image: 308172169369.dkr.ecr.eu-west-1.amazonaws.com/emails-test:relay_4
         name: relay
+        securityContext:
+          capabilities:
+            drop:
+              - ALL
         ports:
         - containerPort: 8080
         envFrom:
