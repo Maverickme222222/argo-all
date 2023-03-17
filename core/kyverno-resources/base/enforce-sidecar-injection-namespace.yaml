@@ -24,11 +24,11 @@ spec:
       - resources:
           kinds:
           - Namespace
+        name:
+          pattern: ^default$
     validate:
       message: "All new Namespaces must have Istio sidecar injection enabled."
       pattern:
         metadata:
-          namespace:
-            pattern: ^default$
           labels:
             istio-injection: enabled
