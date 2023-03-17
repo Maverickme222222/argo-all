@@ -29,9 +29,14 @@ spec:
       - resources:
           namespaces:
           - kube-system
+          - kube-public
+          - kube-node-lease
           - argocd
           - kyverno
           - argo-events
+          - argo
+          - istio-system
+          - argo-rollouts
     validate:
       message: "All new Namespaces must have Istio sidecar injection enabled."
       pattern:
