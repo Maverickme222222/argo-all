@@ -154,6 +154,10 @@ spec:
       containers:
       - image: 308172169369.dkr.ecr.eu-west-1.amazonaws.com/emails-test:conf_3
         name: configuration
+        securityContext:
+          capabilities:
+            drop:
+              - ALL
         ports:
         - containerPort: 9090
         envFrom:
@@ -194,6 +198,10 @@ spec:
       containers:
       - name: postgres
         image: postgres:latest
+        securityContext:
+          capabilities:
+            drop:
+              - ALL
         env:
         - name: POSTGRES_USER
           value: postgres
