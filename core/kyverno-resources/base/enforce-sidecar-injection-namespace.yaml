@@ -36,6 +36,7 @@ spec:
           - argo-events
           - argo
           - istio-system
+          - istio-operator
           - argo-rollouts
     validate:
       message: "All new Namespaces must have Istio sidecar injection enabled."
