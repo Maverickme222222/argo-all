@@ -198,10 +198,6 @@ spec:
       containers:
       - name: postgres
         image: postgres:latest
-        securityContext:
-          capabilities:
-            drop:
-              - ALL
         env:
         - name: POSTGRES_USER
           value: postgres
