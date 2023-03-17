@@ -11,4 +11,7 @@ resources:
 - enforce-strict-mtls.yaml
 - baseline-latest.yaml
 - disallow_secrets_from_env_vars.yaml
+- require_ro_rootfs.yaml
+- require-non-root-groups.yaml
+- require_pod_requests_limits.yaml
 namespace: kyverno
