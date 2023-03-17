@@ -26,6 +26,11 @@ spec:
           - Namespace
         name:
           pattern: ^default$
+    preconditions:
+      any:
+      - key: "default"
+        operator: In
+        value: "{{ Namespace.name }}"
     validate:
       message: "All new Namespaces must have Istio sidecar injection enabled."
       pattern:
