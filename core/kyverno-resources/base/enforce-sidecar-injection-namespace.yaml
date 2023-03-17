@@ -24,8 +24,14 @@ spec:
       - resources:
           kinds:
           - Namespace
-          name: "default"
-      
+    exclude:
+      any:
+      - resources:
+          namespaces:
+          - kube-system
+          - argocd
+          - kyverno
+          - argo-events
     validate:
       message: "All new Namespaces must have Istio sidecar injection enabled."
       pattern:
