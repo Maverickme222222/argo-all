@@ -24,8 +24,7 @@ spec:
       - resources:
           kinds:
           - Namespace
-        name:
-          pattern: ^default$
+        name: "^default.*"
     validate:
       message: "All new Namespaces must have Istio sidecar injection enabled."
       pattern:
