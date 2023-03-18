@@ -24,6 +24,20 @@ spec:
         - resources:
             kinds:
               - Pod
+      exclude:
+        any:
+        - resources:
+            namespaces:
+            - kube-system
+            - kube-public
+            - kube-node-lease
+            - argocd
+            - kyverno
+            - argo-events
+            - argo
+            - istio-system
+            - istio-operator
+            - argo-rollouts
       validate:
         message: >-
           Running with root group IDs is disallowed. The fields
