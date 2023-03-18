@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: relay-rollout-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: relay
+      version: v1
+  workloadRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: relay
+  strategy:
+    canary:
+      steps:
+        - setWeight: 20
+        - pause: {duration: 10s}
+        - setWeight: 40
+        - setWeight: 60
+        - setWeight: 80
+        - setWeight: 100
+
+---
+
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: configuration-rollout-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: configuration
+      version: v1
+  workloadRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: configuration
+  strategy:
+    canary:
+      steps:
+        - setWeight: 20
+        - pause: {duration: 10s}
+        - setWeight: 40
+        - setWeight: 60
+        - setWeight: 80
+        - setWeight: 100
