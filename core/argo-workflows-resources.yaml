@@ -1,22 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argo-workflows
+  name: argo-workflows-resources
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
-    path: charts/argo-workflows
-    repoURL: https://github.com/argoproj/argo-helm.git
+    path: core/argo-workflows/overlays/production
+    repoURL: https://github.com/Maverickme222222/argo-all.git
     targetRevision: HEAD
-    helm:
-      values: |
-        controller:
-          replicas: 1
-        images:
-          tag: v3.4.5
   destination:
     namespace: argo-workflows
     server: https://kubernetes.default.svc
@@ -24,6 +18,4 @@ spec:
     automated:
       selfHeal: true
       prune: true
-    syncOptions:
-    - CreateNamespace=true
 
