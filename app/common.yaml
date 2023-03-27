@@ -59,9 +59,9 @@ spec:
           capabilities:
             drop:
               - ALL
-          runAsNonRoot: 'true'
-          allowPrivilegeEscalation: 'false'
-          readOnlyRootFilesystem: 'true'
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
         ports:
         - containerPort: 8080
         envFrom:
@@ -161,9 +161,9 @@ spec:
           capabilities:
             drop:
               - ALL
-          runAsNonRoot: 'true'
-          allowPrivilegeEscalation: 'false'
-          readOnlyRootFilesystem: 'true'
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
         ports:
         - containerPort: 9090
         envFrom:
