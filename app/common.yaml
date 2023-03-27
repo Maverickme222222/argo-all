@@ -67,7 +67,6 @@ spec:
         envFrom:
           - configMapRef:
               name: relay-config
-        automountServiceAccountToken: false
       imagePullSecrets:
       - name: ecr-secret
 ---
@@ -170,7 +169,6 @@ spec:
         envFrom:
           - configMapRef:
               name: config-config
-        automountServiceAccountToken: false
       imagePullSecrets:
       - name: ecr-secret
 ---
